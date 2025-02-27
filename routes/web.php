@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ProduitController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('produits');
 });
 
 Route::get('/dashboard', function () {
@@ -22,3 +25,32 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+
+
+Route::prefix('admin')->group(function () {
+    /*----------------------------------produits-------------------------*/
+    Route::get('/produits/showproduits',[ProduitController::class,'showProduit']);
+    Route::post('/produits/store',[ProduitController::class,'store']);
+    Route::delete('/produits/destroy',[ProduitController::class,'destroy']);
+    Route::get('/updateform/{id}',[ProduitController::class,'updateform']);
+    Route::post('/produits/update',[ProduitController::class,'update']);
+    /*------------------------categorie---------------------------------------*/
+    Route::post('/categories/update',[CategorieController::class,'update']);
+    Route::post('/categories/store',[CategorieController::class,'store']);
+    Route::delete('/categories/destroy',[CategorieController::class,'destroy']);
+    Route::get('/categories/showCategorie',[CategorieController::class,'showCategorie']);
+    Route::get('/updatecat/{id}',[CategorieController::class,'updateform']);
+
+});
+
+Route::get('/produits',[ProduitController::class,'index']);
+Route::post('/produits/details',[ProduitController::class,'detailsProduits']);
+Route::post('/produits/ajouter',[ProduitController::class,'ajouter']);
+// Route::post();
+
+
+
+
+
