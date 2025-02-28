@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\SousCategorieController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
@@ -36,19 +37,29 @@ Route::prefix('admin')->group(function () {
     Route::delete('/produits/destroy',[ProduitController::class,'destroy']);
     Route::get('/updateform/{id}',[ProduitController::class,'updateform']);
     Route::post('/produits/update',[ProduitController::class,'update']);
+    Route::post('/produits/getone',[ProduitController::class,'getOne']);
     /*------------------------categorie---------------------------------------*/
     Route::post('/categories/update',[CategorieController::class,'update']);
     Route::post('/categories/store',[CategorieController::class,'store']);
     Route::delete('/categories/destroy',[CategorieController::class,'destroy']);
     Route::get('/categories/showCategorie',[CategorieController::class,'showCategorie']);
     Route::get('/updatecat/{id}',[CategorieController::class,'updateform']);
+ /*------------------------souscategorie---------------------------------------*/
+ Route::post('/souscategories/update',[SousCategorieController::class,'update']);
+ Route::post('/souscategories/store',[SousCategorieController::class,'store']);
+ Route::delete('/souscategories/destroy',[sousCategorieController::class,'destroy']);
+ Route::get('/souscategories/showsouscategorie',[SousCategorieController::class,'showSouscategorie']);
+ Route::get('/updatesouscat/{id}',[SousCategorieController::class,'updateform']);
 
-});
+
+})->middleware(['auth']);
 
 Route::get('/produits',[ProduitController::class,'index']);
+Route::get('/panier',[ProduitController::class,'panier']);
+Route::post('/panier',[ProduitController::class,'placeOrder']);
 Route::post('/produits/details',[ProduitController::class,'detailsProduits']);
-Route::post('/produits/ajouter',[ProduitController::class,'ajouter']);
-// Route::post();
+Route::post('/produits/placeorder',[ProduitController::class,'placeOrder']);
+
 
 
 

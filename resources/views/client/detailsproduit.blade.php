@@ -47,8 +47,8 @@
 
         <div class="lg:col-span-1">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 sticky top-8">
-                <div class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                    <i class="bi bi-cash-coin mr-2 text-gray-700"></i> {{ $produit->prixunite }}
+                <div  class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                    <i class="bi bi-cash-coin mr-2 text-gray-700"></i> <span id="prix">{{ $produit->prixunite }}</span>
                 </div>
 
 
@@ -98,31 +98,13 @@
 <script>
 
 
-    // Buy Now Button Animation
-    document.getElementById('BuyBtn').addEventListener('click', function(e) {
-        const buyText = document.getElementById('buyText');
-        const spinner = document.getElementById('spinner');
-
-        buyText.textContent = "Processing...";
-        spinner.classList.remove('hidden');
-
-        setTimeout(() => {
-            buyText.textContent = "Added to Cart!";
-            spinner.classList.add('hidden');
-            document.getElementById('BuyBtn').classList.add('bg-gray-800', 'hover:bg-black');
-
-            setTimeout(() => {
-                buyText.textContent = "Add to Cart";
-                document.getElementById('BuyBtn').classList.remove('bg-gray-800', 'hover:bg-black');
-            }, 1500);
-        }, 1000);
-    });
-
     const quantite=document.getElementById('quantite');
     document.getElementById('increase').addEventListener('click',()=>{
         let value= parseInt(quantite.value);
-        if(value < {{ $produit->stock }}){
+        if(value < {{ $produit->stock }}) {
             quantite.value = value + 1;
+            console.log({{ $produit->prix }} );
+            document.getElementById('prix').textContent = {{ $produit->prixunite }} *  quantite.value;
 
         }
     });
@@ -130,31 +112,44 @@
     document.getElementById('decrease').addEventListener('click', ()=> {
         let value = parseInt(quantite.value);
         if (value > 1) {
+            lastqt = document.getElementById('quantite').value;
+            lastprix=document.getElementById('prix').textContent;
             quantite.value = value - 1;
+            newquantite=document.getElementById('quantite').value;
+
+            console.log(lastqt,lastprix,newquantite);
+            document.getElementById('prix').textContent=(newquantite * lastprix)/lastqt;
         }
     });
 
-    //////////////////////////////////////////////////////// Dynamic
-    document.getElementById("BuyBtn").addEventListener("click", function () {
-        let formData = {
-            quantite: document.getElementById("quantite").value,
-            produit: document.getElementById("produit").value
-        };
 
-        fetch("/produits/ajouter", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                // Alert removed for better UX, using button state change instead
-            })
-            .catch(error => console.error("Fetch Error:", error));
+
+// ajout au panier
+    document.getElementById("BuyBtn").addEventListener("click",()=>{
+        let quantite = parseInt(document.getElementById('quantite').value);
+        let produit = document.getElementById("produit").value;
+
+        let panier= localStorage.getItem('panier') ? JSON.parse(localStorage.getItem('panier')) : [];
+
+        let produitExiste = panier.find(item=>item.produit === produit);
+        if(produitExiste){
+            produitExiste.quantite = quantite;
+        }else{
+            panier.push({produit: produit,quantite: quantite});
+        }
+
+
+        localStorage.setItem('panier',JSON.stringify(panier));
+
+
     });
+
+
+
+
+
+
+
+
 </script>
 @endsection

@@ -7,20 +7,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+
+<style>
+ .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+</style>
+
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
 <!-- Navbar -->
 <nav class="bg-green-800 text-white shadow-lg py-4">
     <div class="container mx-auto flex justify-between items-center px-6 md:px-8">
-       
-        <a href="/" class="text-3xl font-semibold text-teal-300 hover:text-teal-400 transition duration-300">ClicknBuy</a>
+
+        <a href="" class="text-3xl font-semibold text-teal-300 hover:text-teal-400 transition duration-300">ClicknBuy</a>
 
 
         <div class="flex space-x-6">
             <a href="/produits" class="text-white hover:text-teal-300 transition duration-300 text-lg">Catalogue</a>
-            <a href="" class="text-white hover:text-teal-300 transition duration-300 text-lg">Panier</a>
+            <a href="/panier" class="text-white hover:text-teal-300 transition duration-300 text-lg">Panier</a>
         </div>
 
 
@@ -41,6 +52,7 @@
         </div>
     </div>
 </nav>
+
 
 
 <div class="container mx-auto px-6 py-16 flex-grow">
@@ -76,6 +88,32 @@
             menu.classList.add("hidden");
         }
     });
+
+
+    document.getElementById("cartButton").addEventListener("click", function (event) {
+        event.preventDefault();
+        let panier = document.getElementById("panier");
+        panier.classList.toggle("hidden");
+    });
+
+    document.getElementById("closeCart").addEventListener("click", function () {
+        document.getElementById("panier").classList.add("hidden");
+    });
+
+    document.getElementById("userMenuButton").addEventListener("click", function (event) {
+        event.stopPropagation();
+        document.getElementById("userMenu").classList.toggle("hidden");
+    });
+
+
+</script>
+
+
+
+
+
+
+
 </script>
 
 </body>

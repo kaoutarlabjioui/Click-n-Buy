@@ -19,11 +19,11 @@
         </div>
         <div class="flex flex-col flex-grow px-4 py-4">
           <nav class="flex-1 space-y-2">
-            <a href="#" class="flex items-center px-4 py-2 text-white bg-gray-700 rounded-md">
+            <a href="" class="flex items-center px-4 py-2 text-white bg-gray-700 rounded-md">
               <i class="fas fa-home mr-3"></i>
               <span>Tableau de bord</span>
             </a>
-            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
+            <a href="/admin/produits/showproduits" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
               <i class="fas fa-shopping-bag mr-3"></i>
               <span>Produits</span>
             </a>
@@ -35,13 +35,13 @@
               <i class="fas fa-users mr-3"></i>
               <span>Clients</span>
             </a>
-            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
+            <a href="/admin/souscategories/showsouscategorie" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
               <i class="fas fa-chart-line mr-3"></i>
-              <span>Statistiques</span>
+              <span>Souscategories</span>
             </a>
-            <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
+            <a href="/admin/categories/showCategorie" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
               <i class="fas fa-cog mr-3"></i>
-              <span>Paramètres</span>
+              <span>Categorie</span>
             </a>
           </nav>
           <div class="mt-auto">

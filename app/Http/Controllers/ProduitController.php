@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produit;
 use App\Models\SousCategorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProduitController extends Controller
 {
@@ -76,17 +77,38 @@ class ProduitController extends Controller
         return view('admin.updateform',compact('produit','souscategories'));
     }
 
+    public function panier(){
+        return view('client.panier');
+    }
+
     public function detailsProduits(Request $request)
     {
         $produit = Produit::find($request->produit);
 
+
         return view('client.detailsproduit',compact('produit'));
     }
 
-    public function ajouter(Request $request)
+
+    public function getOne(Request $request)
     {
-        session(['produit'=>$request->produit,'quantite'=>$request->quantite]);
-        return response()->json(['produit'=>$request->produit,'quantite'=>$request->quantite]);
+
+
+        $produit  = Produit::find($request['produit']);
+
+        if($produit->user->id != Auth::user()->id)
+        {
+            return view('admin.produits')->with('failed', 'You are not authorized to access this product');
+        }
+
+        $souscategories = SousCategorie::all();
+        return view('admin.updateform', compact('produit', 'souscategories'));
     }
+
+    public function placeOrder(Request $request){
+        $produit = Produit::find(session('produit'));
+        return response()->json(['produit' => session()->get('produit'), 'quantite' => session()->get('quantite')]);
+    }
+
 
 }
