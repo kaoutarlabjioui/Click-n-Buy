@@ -20,8 +20,13 @@
                     <span>{{ $produit->souscategorie->categorie->title }}</span>
                 </div>
             </div>
+
         </div>
+
         <div class="mt-6 md:mt-0">
+
+          <img class="w-52 h-52 object-cover rounded-xl shadow-md border border-gray-300" src="{{ url('storage/'.$produit->image) }}" alt="Product Image">
+
         </div>
     </div>
 
@@ -127,6 +132,7 @@
 // ajout au panier
     document.getElementById("BuyBtn").addEventListener("click",()=>{
         let quantite = parseInt(document.getElementById('quantite').value);
+        let prix = {{$produit->prixunite}};
         let produit = document.getElementById("produit").value;
 
         let panier= localStorage.getItem('panier') ? JSON.parse(localStorage.getItem('panier')) : [];
@@ -135,13 +141,13 @@
         if(produitExiste){
             produitExiste.quantite = quantite;
         }else{
-            panier.push({produit: produit,quantite: quantite});
+            panier.push({produit: produit,quantite: quantite , prix: prix});
         }
-
+        //   console.log(prix);
 
         localStorage.setItem('panier',JSON.stringify(panier));
 
-
+              console.log(panier);
     });
 
 

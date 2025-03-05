@@ -11,7 +11,7 @@
             <table class="min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-50">
                 <tr>
-                  <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th> -->
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">prix unitée</th>
@@ -23,7 +23,7 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 @foreach ($produits as $produit)
                 <tr>
-                  <!-- <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{$produit->image}}</td> -->
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><img src="{{ url('/storage/' . $produit->image) }}"></td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$produit->titre}}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$produit->description}}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$produit->prixunite}}</td>
@@ -65,11 +65,11 @@
         <div id="jobModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50  justify-center items-center">
             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
                 <h2 class="text-xl font-bold mb-4">ajouter produit</h2>
-                    <form action="/admin/produits/store" method="POST" class="w-full">
+                    <form action="/admin/produits/store" method="POST" class="w-full"  enctype="multipart/form-data">
                       @csrf
                        <div class="form-element mb-4">
                           <label for="image" class="block text-gray-700 mb-2">Image</label>
-                          <input type="url" name="image" required placeholder="image"  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          <input type="file" name="image" required placeholder="image"  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
 
 

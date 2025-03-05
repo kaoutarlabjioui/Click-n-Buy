@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\SousCategorieController;
 use Illuminate\Routing\RouteGroup;
@@ -60,8 +62,21 @@ Route::post('/panier',[ProduitController::class,'placeOrder']);
 Route::post('/produits/details',[ProduitController::class,'detailsProduits']);
 Route::post('/produits/placeorder',[ProduitController::class,'placeOrder']);
 
+//--------------------------payment-------------------------------------------
+
+Route::get('/payment', [PaymentController::class,'showPaymentForm'])->name('payment.form');
+Route::post('/process-payment', [PaymentController::class,'processPayment'])->name('process.payment');
+Route::get('/payment/success', function () {
+    return view('payment-success');
+})->name('payment.success');
+
+Route::get('/payment/failure', function () {
+    return view('payment-failure');
+})->name('payment.failure');
 
 
+//---------------------------commande-----------------
 
-
+// Route::get('/commandes',[CommandeController::class,'index']);
+Route::post('/commandes/page',[CommandeController::class,'commande']);
 

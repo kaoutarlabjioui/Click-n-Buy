@@ -4,7 +4,8 @@
 @foreach ($produits as $produit)
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md">
     <div class="px-5 pt-4 pb-5">
-        <h2 class="text-lg font-medium text-gray-800 tracking-tight">{{ $produit->titre }}</h2>
+    <img src="{{ url('storage/'. $produit->image) }}" alt="{{ $produit->title }}" class="w-full h-48 object-cover rounded-md mb-4">
+        <!-- <h2 class="text-lg font-medium text-gray-800 tracking-tight">{{ $produit->titre }}</h2> -->
         <p class="mt-2 text-sm text-gray-500 leading-relaxed">{{$produit->description }}</p>
         <p class="mt-3 text-lg font-medium text-gray-900">{{ $produit->prixunite }} €</p>
         <div class="mt-4 grid grid-cols-2 gap-3">
