@@ -99,9 +99,14 @@
                                 </div>
                                 <!-- <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p> -->
                                 <div class="mt-6">
+                                <form action="/commandes/page" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="data"  id="data">
+                                    <input type="hidden" name="balance" id="total">
+                                    <button type="submit" class="block rounded-md border border-transparent bg-green-600  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-green-700">Checkout</button>
+                                </form>
 
-
-                                    <a href="/commandes" class="flex items-center justify-center rounded-md border border-transparent bg-green-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-green-700">Checkout</a>
+                                    <!-- <a href="/commandes" class="flex items-center justify-center rounded-md border border-transparent bg-green-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-green-700">Checkout</a> -->
                                 </div>
                                 <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                     <p>
@@ -142,6 +147,9 @@
     </footer>
 
     <script>
+        
+        document.getElementById('data').value = localStorage.getItem('panier');
+
         document.getElementById("cartButton").addEventListener("click", function(event) {
             event.preventDefault();
 

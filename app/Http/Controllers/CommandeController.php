@@ -35,14 +35,14 @@ class CommandeController extends Controller
             CommandeItems::create([
                 'produit_id'=>$product->id,
                 'commande_id'=>$commande->id,
-                'prix'=> intval($produit->prixunite * $produit->quantite),
+                'prix'=> intval($produit->prix * $produit->quantite),
                 'quantite' =>$produit->quantite,
             ]);
         }
 
 
-        $produits = CommandeItems::where('commande_id',$commande->id)->get();
-        return view('client.commande',compact('produits','commande','totalPrix'));
+        $Produits = CommandeItems::where('commande_id',$commande->id)->get();
+        return view('client.commande',compact('Produits','commande','totalPrix'));
 
 
 
