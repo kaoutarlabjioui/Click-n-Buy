@@ -40,13 +40,13 @@
             </div>
             <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">Complete your shipping details below.</div>
             <div class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
-                <a href="/products" class="submit-button px-4 py-1 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+                <a href="/produits" class="submit-button px-4 py-1 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
                     Back to Home
                 </a>
             </div>
         </div>
         <div class="max-w-5xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-2xl ">
-            <form id="payment-form" method="POST" action="/pay">
+            <form id="payment-form" method="POST" action="/address/store">
                 @csrf
                 <section>
                     <h2 class="uppercase tracking-widest text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
@@ -158,16 +158,16 @@
         </ul>
         <div class="px-8 border-b">
             <div class="flex justify-between py-4 text-gray-600">
-                <span>Subtotal</span>
+                <span>Totale</span>
                 <span class="font-semibold text-pink-500">${{ number_format($totalPrix, 2, ',', ' ') }}</span>
             </div>
             <div class="flex justify-between py-4 text-gray-600">
-                <span>Shipping</span>
-                <span class="font-semibold text-pink-500">Free</span>
+                <span>Livraison</span>
+                <span class="font-semibold text-pink-500">Gratuite</span>
             </div>
         </div>
         <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
-            <span>Total</span>
+            <span>Totale</span>
             <span>${{ number_format($totalPrix, 2, ',', ' ') }}</span>
         </div>
     </div>

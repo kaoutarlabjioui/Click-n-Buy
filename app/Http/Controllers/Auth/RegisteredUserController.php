@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
         $roleId = $role->id;
        }else{
         $roleId = Role::whereRaw('LOWER(role_name) = ?' , 'client')->first()->id;
-        
+
        }
 
 

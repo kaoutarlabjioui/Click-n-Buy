@@ -25,13 +25,14 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth','admin'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
 
 
 
+Route::middleware(['auth','admin'])->group(function () {
 Route::prefix('admin')->group(function () {
     /*----------------------------------produits-------------------------*/
     Route::get('/produits/showproduits',[ProduitController::class,'showProduit']);
@@ -53,8 +54,8 @@ Route::prefix('admin')->group(function () {
  Route::get('/souscategories/showsouscategorie',[SousCategorieController::class,'showSouscategorie']);
  Route::get('/updatesouscat/{id}',[SousCategorieController::class,'updateform']);
 
-
-})->middleware(['auth']);
+});
+});
 
 Route::get('/produits',[ProduitController::class,'index']);
 Route::get('/panier',[ProduitController::class,'panier']);

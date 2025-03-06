@@ -16,10 +16,13 @@ class CommandeController extends Controller
     // }
 
     public function commande(Request $request){
-
+// dd($request);
         $produits =json_decode($request['data']);
         $totalPrix =intval($request['balance']);
-        // dd($produits);
+
+
+        // die();
+        // dd($totalPrix);
 
         $commande = Commande::create([
             'client_id'=> Auth::user()->id,
@@ -40,8 +43,10 @@ class CommandeController extends Controller
             ]);
         }
 
+        //
 
         $Produits = CommandeItems::where('commande_id',$commande->id)->get();
+        echo "<script>localStorage.clear();</script>";
         return view('client.commande',compact('Produits','commande','totalPrix'));
 
 

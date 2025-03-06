@@ -26,32 +26,56 @@
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <nav class="bg-green-800 text-white shadow-lg py-4">
+    <nav class="bg-pink-500 text-white shadow-lg py-4">
         <div class="container mx-auto flex justify-between items-center px-6 md:px-8">
 
-            <a href="" class="text-3xl font-semibold text-teal-300 hover:text-teal-400 transition duration-300">ClicknBuy</a>
+            <a href="" class="text-3xl font-semibold text-gray-300 hover:text-gray-400 transition duration-300">ClicknBuy</a>
 
 
             <div class="flex space-x-6">
-                <a href="/produits" class="text-white hover:text-teal-300 transition duration-300 text-lg">Catalogue</a>
-                <a href="/panier" id="cartButton" class="text-white hover:text-teal-300 transition duration-300 text-lg">Panier</a>
+                <a href="/produits" class="text-white hover:text-gray-300 transition duration-300 text-lg">Catalogue</a>
+                <a href="/panier" id="cartButton" class="text-white hover:text-gray-300 transition duration-300 text-lg">Panier</a>
+            </div>
+            <div class="mt-auto">
+
+
+
+                            <a href="/logout">
+                                {{ __('Log Out') }}
+                                <a href="/produits" class="text-white hover:text-gray-300 transition duration-300 text-lg">Catalogue</a>
+                                <a href="/panier" id="cartButton" class="text-white hover:text-gray-300 transition duration-300 text-lg">Panier</a>
+                            </a>
+
             </div>
 
-
             <div class="flex items-center space-x-4">
-                @if (Route::has('login'))
-                <div class="hidden sm:block">
-                    @auth
-                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-200 hover:text-teal-300 underline">Dashboard</a>
-                    @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-200 hover:text-teal-300 underline">Connexion</a>
-
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-200 hover:text-teal-300 underline">Inscription</a>
-                    @endif
-                    @endauth
+            @if (Route::has('login'))
+    <div class="hidden sm:block">
+        @auth
+            @if(auth()->user()->role->role_name == 'admin')
+                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-200 hover:text-gray-300 underline">Dashboard</a>
+            @elseif(auth()->user()->role->role_name == 'client')
+                <div class="flex space-x-6">
+                    <a href="/produits" class="text-white hover:text-gray-300 transition duration-300 text-lg">Catalogue</a>
+                    <a href="/panier" id="cartButton" class="text-white hover:text-gray-300 transition duration-300 text-lg">Panier</a>
                 </div>
+            @else
+                <a href="{{ route('login') }}" class="text-sm text-gray-200 hover:text-gray-300 underline">Connexion</a>
+
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-200 hover:text-gray-300 underline">Inscription</a>
                 @endif
+            @endauth
+        @else
+            <a href="{{ route('login') }}" class="text-sm text-gray-200 hover:text-gray-300 underline">Connexion</a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-200 hover:text-gray-300 underline">Inscription</a>
+            @endif
+        @endauth
+    </div>
+@endif
+
             </div>
         </div>
     </nav>
@@ -103,7 +127,7 @@
                                     @csrf
                                     <input type="hidden" name="data"  id="data">
                                     <input type="hidden" name="balance" id="total">
-                                    <button type="submit" class="block rounded-md border border-transparent bg-green-600  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-green-700">Checkout</button>
+                                    <button type="submit" class="block rounded-md border border-transparent bg-pink-600  px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-pink-700">Checkout</button>
                                 </form>
 
                                     <!-- <a href="/commandes" class="flex items-center justify-center rounded-md border border-transparent bg-green-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-green-700">Checkout</a> -->
@@ -111,7 +135,7 @@
                                 <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                     <p>
                                         or
-                                        <button type="button" class="font-medium text-green-500 hover:text-green-700 hover:bg-green-600">
+                                        <button type="button" class="font-medium text-pink-500 hover:text-pink-700 hover:bg-pink-600">
                                             Continuez votre Shopping
                                             <span aria-hidden="true"> &rarr;</span>
                                         </button>
@@ -147,10 +171,13 @@
     </footer>
 
     <script>
-        
-        document.getElementById('data').value = localStorage.getItem('panier');
+
+
+
+        // console.log(document.getElementById('total').value);
 
         document.getElementById("cartButton").addEventListener("click", function(event) {
+            document.getElementById('data').value = localStorage.getItem('panier');
             event.preventDefault();
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -166,8 +193,6 @@
                         'X-CSRF-TOKEN': csrfToken
                     },
                     body: JSON.stringify(items)
-
-
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -176,11 +201,11 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data)
-                    console.log(JSON.stringify(items));
+                    // console.log(data)
+                    // console.log(JSON.stringify(items));
                     itemsSection.innerHTML = '';
                     let Total = 0;
-                    console.log(items);
+                    // console.log(items);
                     for (let i = 0; i < data.produits.length; i++) {
                         itemsSection.innerHTML += `<li class="flex py-6">
 
@@ -210,8 +235,10 @@
 
                     }
 
-
-
+                    totalSpan = document.getElementById('totalAmount');
+                    // console.log(totalSpan);
+                    totalSpan.textContent = Total;
+                    document.getElementById('total').value = Total;
                     document.querySelectorAll(".removeTag").forEach(function(element) {
 
 
@@ -231,6 +258,8 @@
                                 Total += element.prixunite * element.quantite;
                             })
                             totalSpan.textContent = Total;
+
+
                         });
                     });
                 })
