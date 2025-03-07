@@ -65,15 +65,23 @@ Route::post('/produits/placeorder',[ProduitController::class,'placeOrder']);
 
 //--------------------------payment-------------------------------------------
 
-Route::get('/payment', [PaymentController::class,'showPaymentForm'])->name('payment.form');
-Route::post('/process-payment', [PaymentController::class,'processPayment'])->name('process.payment');
-Route::get('/payment/success', function () {
-    return view('payment-success');
-})->name('payment.success');
+// Route::get('/payment', [PaymentController::class,'showPaymentForm'])->name('payment.form');
+// Route::post('/process-payment', [PaymentController::class,'processPayment'])->name('process.payment');
+// Route::get('/payment/success', function () {
+//     return view('payment-success');
+// })->name('payment.success');
 
-Route::get('/payment/failure', function () {
-    return view('payment-failure');
-})->name('payment.failure');
+// Route::get('/payment/failure', function () {
+//     return view('payment-failure');
+// })->name('payment.failure');
+
+
+Route::middleware('auth')->group(function () {
+    Route::controller(PaymentController::class)->group(function(){
+        Route::post('/pay', 'pay');
+        Route::post('/command/pay', 'stripePost')->name('stripe.post');
+    });
+});
 
 
 //---------------------------commande-----------------

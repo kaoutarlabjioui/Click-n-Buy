@@ -8,16 +8,19 @@ use Stripe\Charge;
 
 class PaymentController extends Controller
 {
-    public function showPaymentForm()
-    {
-        return view('payment');
-    }
 
+    /**
+     * success response method.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
     public function pay(Request $request){
         $totalApaye =$request['totalAmont'];
         $tax = 99;
+        $livraison = 'Gratuite';
         $finalApaye = $totalApaye + $tax;
+        return view('client.payment', compact('totalApaye', 'tax', 'finalApaye', 'livraison'));
     }
 
 
@@ -32,14 +35,13 @@ class PaymentController extends Controller
                 'amount' => $request['balance'] * 100, // Amount in cents
                 'currency' => 'usd',
                 'source' => $request->stripeToken,
-                'description' => 'Test Payment',
+                'description' => '',
             ]);
-            dd($request);
 
             // Payment successful; store a success message in the session
-            $request->session()->flash('success', 'Payment successful!');
+            // $request->session()->flash('success', 'Payment successful!');
 
-            return redirect()->route('payment.success');
+            return view('client.success');
         } catch (\Exception $e) {
             // Payment failed; store an error message in the session
             $request->session()->flash('error', $e->getMessage());

@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="max-w-5xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-2xl ">
-            <form id="payment-form" method="POST" action="/address/store">
+            <form id="payment-form" method="POST" action="/pay">
                 @csrf
                 <section>
                     <h2 class="uppercase tracking-widest text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">

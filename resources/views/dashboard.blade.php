@@ -45,11 +45,16 @@
             </a>
           </nav>
           <div class="mt-auto">
-            <!-- <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
+            <a href="/logout" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
               <i class="fas fa-sign-out-alt mr-3"></i>
-              <span>Déconnexion</span>
-            </a> -->
-            <form method="POST" action="{{ route('logout') }}">
+
+              <span>{{ __('Log Out') }}</span>
+            </a>
+            <!-- <a href="/logout">
+                                {{ __('Log Out') }}
+
+                            </a> -->
+            <!-- <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
@@ -57,7 +62,7 @@
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
-                </form>
+                </form> -->
             </div>
 
 
