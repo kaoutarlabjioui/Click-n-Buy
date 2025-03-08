@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Stripe\Stripe;
+use Stripe;
 use Stripe\Charge;
 
 class PaymentController extends Controller
@@ -20,6 +20,7 @@ class PaymentController extends Controller
         $tax = 99;
         $livraison = 'Gratuite';
         $finalApaye = $totalApaye + $tax;
+     
         return view('client.payment', compact('totalApaye', 'tax', 'finalApaye', 'livraison'));
     }
 
@@ -28,10 +29,10 @@ class PaymentController extends Controller
 
     {
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+        Stripe\Stripe::setApiKey(config('stripe.secret'));
 
         try {
-            Charge::create([
+            Stripe\Charge::create([
                 'amount' => $request['balance'] * 100, // Amount in cents
                 'currency' => 'usd',
                 'source' => $request->stripeToken,
@@ -42,11 +43,10 @@ class PaymentController extends Controller
             // $request->session()->flash('success', 'Payment successful!');
 
             return view('client.success');
-        } catch (\Exception $e) {
-            // Payment failed; store an error message in the session
-            $request->session()->flash('error', $e->getMessage());
-
-            return redirect()->route('payment.failure');
+            echo "<script>localStorage.clear();</script>";
+            return  view('client.success');
+        } catch (Stripe\Exception\CardException $e) {
+            echo $e->getMessage();
         }
     }
 }

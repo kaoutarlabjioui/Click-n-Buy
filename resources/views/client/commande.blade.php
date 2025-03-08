@@ -126,7 +126,7 @@
                     </fieldset>
                 </section>
                 <br>
-                <input type="hidden" name="finalAmount" value="{{ $totalPrix }}">
+                <input type="hidden" name="totalAmont" value="{{ $totalPrix }}">
                 <button type="submit" class="px-4 py-3 rounded-full bg-pink-400 text-white focus:outline-none w-full text-xl font-semibold transition-colors">
                     Pay ${{ number_format($totalPrix, 2, ',', ' ') }}
                 </button>

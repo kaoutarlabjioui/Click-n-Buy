@@ -79,7 +79,7 @@ Route::post('/produits/placeorder',[ProduitController::class,'placeOrder']);
 Route::middleware('auth')->group(function () {
     Route::controller(PaymentController::class)->group(function(){
         Route::post('/pay', 'pay');
-        Route::post('/command/pay', 'stripePost')->name('stripe.post');
+        Route::post('/command/pay', 'processPayment')->name('stripe.post');
     });
 });
 

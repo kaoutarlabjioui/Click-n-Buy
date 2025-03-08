@@ -44,10 +44,10 @@
                     @if(auth()->user()->role->role_name == 'admin')
                     <a href="{{ url('/dashboard') }}" class="text-sm text-gray-200 hover:text-gray-300 underline">Dashboard</a>
                     @else
-                    <div class="flex space-x-6">
+                    <!-- <div class="flex space-x-6">
                         <a href="/produits" class="text-white hover:text-gray-300 transition duration-300 text-lg">Catalogue</a>
                         <a href="/panier" id="cartButton" class="text-white hover:text-gray-300 transition duration-300 text-lg">Panier</a>
-                    </div>
+                    </div> -->
                     @endif
                     <a href="/logout" class="text-sm text-gray-200 hover:text-gray-300 underline">{{ __('Log Out') }}</a>
                     @else
